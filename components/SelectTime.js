@@ -1,9 +1,26 @@
-import React, { useState, useEffect } from "react";
-import { StyleSheet, View } from "react-native";
+import React from "react";
+import { View } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
-import DropDownPicker from "react-native-dropdown-picker";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  addWorkLimit,
+  addBreakLimit,
+  addBigBreakLimit,
+} from "../store/actions/user";
 
 const SelectTime = (props) => {
+  var type = props.type;
+  if (type == "workLimit") {
+    var execute = [addWorkLimit];
+  } else if (type == "breakLimit") {
+    var execute = [addBreakLimit];
+  } else if (type == "bigBreakLimit") {
+    var execute = [addBigBreakLimit];
+  }
+  // store
+  const limit = useSelector((state) => state.user.timeObject[type]);
+  const dispatch = useDispatch();
+
   const placeholder = {};
   let items = [];
   for (let i = props.from; i <= props.to; i++) {
@@ -14,23 +31,12 @@ const SelectTime = (props) => {
       color: "black",
     });
   }
-  //   const items = [
-  //     { label: "1 minutes", value: 1 },
-  //     { label: "2 minutes", value: 2 },
-  //   ];
-
   return (
     <View>
-      {/* <DropDownPicker
-        items={items}
-        defaultValue={props.limit / 60}
-        onChangeItem={(item) => props.setLimit(item.value * 60)}
-        containerStyle={{ height: 40 }}
-      /> */}
       <RNPickerSelect
-        onValueChange={(value) => props.setTime(value * 60)}
+        onValueChange={(value) => dispatch(execute[0]({ time: value * 60 }))}
         items={items}
-        value={props.time / 60}
+        value={limit / 60}
         disabled={props.action}
         placeholder={placeholder}
       />

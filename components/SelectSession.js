@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { StyleSheet, View } from "react-native";
-import { useDispatch } from "react-redux";
+import React from "react";
+import { View } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
+import { useSelector, useDispatch } from "react-redux";
 import { addSessionNum } from "../store/actions/user";
 
 const SelectSession = (props) => {
+  const sessionNum = useSelector((state) => state.user.timeObject.sessionNum);
   const dispatch = useDispatch();
   const placeholder = {};
+
   let items = [];
   for (let i = props.from; i <= props.to; i++) {
     items.push({
@@ -16,17 +18,15 @@ const SelectSession = (props) => {
       color: "black",
     });
   }
-
   return (
     <View>
       <RNPickerSelect
-        //   props.setSession(value)}
         onValueChange={(value) =>
           dispatch(addSessionNum({ sessionNum: value }))
         }
         items={items}
-        value={props.session}
-        disabled={props.action}
+        value={sessionNum}
+        // disabled={props.action}
         placeholder={placeholder}
       />
     </View>
