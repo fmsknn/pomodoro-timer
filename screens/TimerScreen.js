@@ -9,8 +9,23 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
   },
+  sessionType: {
+    paddingTop: 225,
+    fontWeight: "bold",
+    fontSize: 25,
+  },
+  sessionNum: {
+    fontWeight: "bold",
+    fontSize: 19,
+    paddingTop: 5,
+  },
   buttons: {
+    paddingTop: 25,
     flexDirection: "row",
+  },
+  centerButton: {
+    paddingLeft: 30,
+    paddingRight: 30,
   },
 });
 const TimerScreen = (props) => {
@@ -155,13 +170,27 @@ const TimerScreen = (props) => {
   return (
     <View style={styles.container}>
       <Timer leftSec={leftSec} />
+      <Text style={styles.sessionType}>{currentSessionName}</Text>
+      <Text style={styles.sessionNum}>
+        {leftSessionNum} / {sessionNum}
+      </Text>
       <View style={styles.buttons}>
         <Ionicons size={60} name="stop-sharp" onPress={reset} />
         {!action && (
-          <Ionicons size={60} name="play-circle-outline" onPress={start} />
+          <Ionicons
+            style={styles.centerButton}
+            size={60}
+            name="play-circle-outline"
+            onPress={start}
+          />
         )}
         {action && (
-          <Ionicons size={60} name="pause-circle-outline" onPress={pause} />
+          <Ionicons
+            style={styles.centerButton}
+            size={60}
+            name="pause-circle-outline"
+            onPress={pause}
+          />
         )}
         <Ionicons
           size={60}
@@ -169,10 +198,6 @@ const TimerScreen = (props) => {
           onPress={nextSession}
         />
       </View>
-      <Text>{currentSessionName}</Text>
-      <Text>
-        {leftSessionNum}/{sessionNum}
-      </Text>
     </View>
   );
 };

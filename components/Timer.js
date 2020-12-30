@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { StyleSheet, View, Text } from "react-native";
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 100,
-    alignItems: "center",
+    paddingTop: 240,
   },
   timer: {
-    fontSize: 60,
+    fontSize: 80,
   },
 });
 

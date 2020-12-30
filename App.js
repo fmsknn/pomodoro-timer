@@ -2,8 +2,9 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
+import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
-import store from "./store";
+import store, { persistor } from "./store";
 import SettingScreen from "./screens/SettingScreen";
 import TimerScreen from "./screens/TimerScreen";
 
@@ -25,16 +26,20 @@ const App = () => {
   });
   const TimerScreenApp = () => {
     return (
-      <Provider store={store}>
-        <TimerScreen />
-      </Provider>
+      <PersistGate loading={null} persistor={persistor}>
+        <Provider store={store}>
+          <TimerScreen />
+        </Provider>
+      </PersistGate>
     );
   };
   const SettingScreenApp = () => {
     return (
-      <Provider store={store}>
-        <SettingScreen />
-      </Provider>
+      <PersistGate loading={null} persistor={persistor}>
+        <Provider store={store}>
+          <SettingScreen />
+        </Provider>
+      </PersistGate>
     );
   };
   return (
